@@ -12,10 +12,6 @@ Install argocd client
 Run a service:
 
     kubectl config set-context --current --namespace=argocd
-    argocd app create guestbook --repo https://github.com/argoproj/argocd-example-apps.git --path guestbook --dest-server https://kubernetes.default.svc --dest-namespace default
-    argocd app get guestbook
-    argocd app sync guestbook
-
-Run my service
-
     argocd app create sla --repo https://github.com/kaihendry/sla.git --path k8s --dest-server https://kubernetes.default.svc --dest-namespace kai
+    argocd app get sla
+    argocd app sync sla
