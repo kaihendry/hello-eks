@@ -12,6 +12,7 @@ Install argocd client
 Run a service:
 
     kubectl config set-context --current --namespace=argocd
+    kubectl create namespace kai
     argocd app create sla --repo https://github.com/kaihendry/sla.git --path k8s --dest-server https://kubernetes.default.svc --dest-namespace kai
     argocd app get sla
     argocd app sync sla
