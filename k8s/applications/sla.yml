@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: sla-hello
+  namespace: kai
+spec:
+  destination:
+    namespace: kai
+    server: "https://kubernetes.default.svc"
+  source:
+    path: k8s/
+    repoURL: https://github.com/kaihendry/sla.git
+    targetRevision: HEAD
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - PrunePropagationPolicy=background
+      - CreateNamespace=true
