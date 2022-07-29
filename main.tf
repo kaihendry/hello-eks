@@ -1,5 +1,5 @@
 locals {
-  name            = "ex-${replace(basename(path.cwd), "_", "-")}"
+  name            = "${replace(basename(path.cwd), "_", "-")}"
   cluster_version = "1.22"
   region          = "ap-southeast-1"
 
@@ -32,11 +32,6 @@ module "eks" {
       resolve_conflicts = "OVERWRITE"
     }
   }
-
-  cluster_encryption_config = [{
-    provider_key_arn = aws_kms_key.eks.arn
-    resources        = ["secrets"]
-  }]
 
   vpc_id     = module.vpc.vpc_id
   subnet_ids = module.vpc.private_subnets
@@ -132,10 +127,6 @@ module "vpc" {
   single_nat_gateway   = true
   enable_dns_hostnames = true
 
-  enable_flow_log                      = true
-  create_flow_log_cloudwatch_iam_role  = true
-  create_flow_log_cloudwatch_log_group = true
-
   public_subnet_tags = {
     "kubernetes.io/cluster/${local.name}" = "shared"
     "kubernetes.io/role/elb"              = 1
@@ -149,10 +140,3 @@ module "vpc" {
   tags = local.tags
 }
 
-resource "aws_kms_key" "eks" {
-  description             = "EKS Secret Encryption Key"
-  deletion_window_in_days = 7
-  enable_key_rotation     = true
-
-  tags = local.tags
-}
