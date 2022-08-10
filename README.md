@@ -10,3 +10,5 @@ Accessing [Web user interface](https://argo-cd.readthedocs.io/en/stable/getting_
 
     kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
     kubectl port-forward svc/argocd-server -n argocd 8080:443
+
+[Pluralith diagram](https://s.natalian.org/2022-08-10/Pluralith_Diagram.pdf)
